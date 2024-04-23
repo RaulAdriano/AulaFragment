@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import com.rauladrianoramos.aulafragment.fragments.ChamadasFragment
 import com.rauladrianoramos.aulafragment.fragments.ConversasFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var buttonConversas : Button
-    private lateinit var buttonChamadas : Button
+    private lateinit var buttonMercado: Button
+    private lateinit var buttonChamadas: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,22 +27,30 @@ class MainActivity : AppCompatActivity() {
 //
 //        fragmentManager.commit()
 
-        buttonConversas = findViewById(R.id.button_conversas)
+        buttonMercado = findViewById(R.id.button_mercado)
         buttonChamadas = findViewById(R.id.button_chamadas)
 
-        //val conversasFragment = ConversasFragment();
 
-        buttonConversas.setOnClickListener {
+        buttonMercado.setOnClickListener {
+            val conversasFragment = ConversasFragment()
+
+            val bundle = bundleOf(
+                "categoria" to "mercado",
+                "usuario" to "Raul"
+            )
+
+            conversasFragment.arguments = bundle
+
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_conteudo,ConversasFragment())
+                .replace(R.id.fragment_conteudo, conversasFragment)
                 .commit()
         }
 
         buttonChamadas.setOnClickListener {
             supportFragmentManager
                 .beginTransaction()
-               .replace(R.id.fragment_conteudo, ChamadasFragment())
+                .replace(R.id.fragment_conteudo, ChamadasFragment())
                 //.remove(conversasFragment)
                 .commit()
         }
