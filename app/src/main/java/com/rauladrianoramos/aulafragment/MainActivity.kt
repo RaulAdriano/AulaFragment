@@ -5,6 +5,8 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.rauladrianoramos.aulafragment.fragments.ChamadasFragment
 import com.rauladrianoramos.aulafragment.fragments.ConversasFragment
 
@@ -39,12 +41,17 @@ class MainActivity : AppCompatActivity() {
                 "usuario" to "Raul"
             )
 
-            conversasFragment.arguments = bundle
+            //  conversasFragment.arguments = bundle
 
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_conteudo, conversasFragment)
-                .commit()
+//            supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.fragment_conteudo, conversasFragment)
+//                .commit()
+
+            //utilizando KOTLIN KTX- Android Jetpack
+            supportFragmentManager.commit {
+                replace<ConversasFragment>(R.id.fragment_conteudo, args = bundle)
+            }
         }
 
         buttonChamadas.setOnClickListener {
